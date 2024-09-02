@@ -16,15 +16,7 @@ updateCenter.updateAllSites()
 
 def plugins =[
   "workflow-aggregator",
-"workflow-cps",
-"pipeline-stage-view",
-"pipeline-model-definition",
 "git",
-"github-branch-source",
-"gitlab-plugin",
-"blueocean",
-"pipeline-github-lib",
-"credentials-binding",
 "docker-plugin"
 ]
 
