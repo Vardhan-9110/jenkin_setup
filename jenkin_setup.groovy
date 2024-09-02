@@ -14,7 +14,23 @@ def updateCenter = jenkins.getUpdateCenter()
 
 updateCenter.updateAllSites()
 
-def plugins = ["git", "workflow-aggregator", "docker-plugin","git","github","ssh-slaves","mailer","gradle","pipeline-stage-view","credentials-binding","timestamper","junit","build-timeout","ant","ivy","matrix-auth","ws-cleanup","command-launcher","ace-editor","jquery","owasp-markup-formatter"]
+def plugins = [
+  "ant",
+  "build-timeout",
+  "dark-theme",
+  "email-ext",
+  "github-branch-source",
+  "gradle",
+  "ldap",
+  "matrix-auth",
+  "pam-auth",
+  "workflow-aggregator",
+  "pipeline-graph-view",
+  "pipeline-github-lib",
+  "ssh-slaves",
+  "timestamper",
+  "ws-cleanup"
+]
 def installed = false
 
 plugins.each {
