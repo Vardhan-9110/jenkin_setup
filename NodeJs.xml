@@ -29,9 +29,9 @@
           stage('Deploy') {
             steps {
               script {
-                sh "npm install"
-                sh "npm run build"
-                sh "pm2 serve build 3000 --spa"
+                sh "sudo npm install"
+                sh "sudo npm run build"
+                sh "sudo pm2 serve build 3000 --spa"
               }
             }
           }
