@@ -15,26 +15,17 @@ def updateCenter = jenkins.getUpdateCenter()
 updateCenter.updateAllSites()
 
 def plugins =[
-  "cloudbees-folder",
-  "antisamy-markup-formatter",
-  "build-timeout",
-  "credentials-binding",
-  "timestamper",
-  "ws-cleanup",
-  "ant",
-  "gradle",
   "workflow-aggregator",
-  "github-branch-source",
-  "pipeline-github-lib",
-  "pipeline-graph-view",
-  "git",
-  "ssh-slaves",
-  "matrix-auth",
-  "pam-auth",
-  "ldap",
-  "email-ext",
-  "mailer",
-  "dark-theme"
+"workflow-cps",
+"pipeline-stage-view",
+"pipeline-model-definition",
+"git",
+"github-branch-source",
+"gitlab-plugin",
+"blueocean",
+"pipeline-github-lib",
+"credentials-binding",
+"docker-plugin"
 ]
 
 def installed = false
