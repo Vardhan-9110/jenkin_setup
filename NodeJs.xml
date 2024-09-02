@@ -1,0 +1,40 @@
+
+      pipeline {
+        agent any
+        stages {
+          stage('Clone') {
+            steps {
+              script {
+                git branch: "master", url: "https://github.com/koteswararao73/simple-node-js-react-npm-app.git"
+              }
+            }
+          }
+          stage('Build') {
+            steps {
+              script {
+                sh 'sudo dpkg --configure -a || true'
+                sh 'sudo apt-get update'
+                sh "sudo apt install  nodejs npm -y"
+                sh 'sudo npm install -g serve pm2'
+              }
+            }
+          }
+          stage('Deploy') {
+            steps {
+              script {
+                sh "npm install"
+                sh "npm run build"
+                sh "pm2 serve build 3000 --spa"
+              }
+            }
+          }
+        }
+        post {
+          success {
+            echo 'Build and deployment successful!'
+          }
+          failure {
+            echo 'Build or deployment failed.'
+          }
+        }
+      }
