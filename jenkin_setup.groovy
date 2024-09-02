@@ -14,7 +14,7 @@ def updateCenter = jenkins.getUpdateCenter()
 
 updateCenter.updateAllSites()
 
-def plugins = ["git", "workflow-aggregator", "docker-plugin"]
+def plugins =["git", "workflow-aggregator", "docker-plugin", 'workflow-cps', 'pipeline-stage-view', 'pipeline-model-definition', 'github-branch-source', 'gitlab-plugin', 'blueocean', 'pipeline-github-lib', 'credentials-binding']
 def installed = false
 
 plugins.each {
