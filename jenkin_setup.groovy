@@ -12,26 +12,46 @@ jenkins.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
 def pluginManager = jenkins.getPluginManager()
 def updateCenter = jenkins.getUpdateCenter()
 
+// Update plugin sites
 updateCenter.updateAllSites()
 
-def plugins =["git", "workflow-aggregator", "docker-plugin", 'workflow-cps', 'pipeline-stage-view', 'pipeline-model-definition', 'github-branch-source', 'gitlab-plugin', 'blueocean', 'pipeline-github-lib', 'credentials-binding']
+def plugins = [
+    "git", 
+    "workflow-aggregator", 
+    "docker-plugin", 
+    "workflow-cps", 
+    "pipeline-stage-view", 
+    "pipeline-model-definition", 
+    "github-branch-source", 
+    "gitlab-plugin", 
+    "blueocean", 
+    "pipeline-github-lib", 
+    "credentials-binding"
+]
 def installed = false
 
-plugins.each {
-  if (!pluginManager.getPlugin(it)) {
-    logger.info("Installing " + it)
-    def plugin = updateCenter.getPlugin(it)
-    if (plugin) {
-      plugin.deploy()
-      installed = true
+plugins.each { plugin ->
+    if (!pluginManager.getPlugin(plugin)) {
+        logger.info("Installing plugin: ${plugin}")
+        def pluginToInstall = updateCenter.getPlugin(plugin)
+        if (pluginToInstall) {
+            try {
+                pluginToInstall.deploy().get() // Wait for installation to complete
+                installed = true
+                logger.info("Plugin ${plugin} installed successfully.")
+            } catch (Exception e) {
+                logger.severe("Failed to install plugin ${plugin}: ${e.message}")
+            }
+        } else {
+            logger.warning("Plugin ${plugin} not found in update center.")
+        }
+    } else {
+        logger.info("Plugin ${plugin} is already installed.")
     }
-  }
 }
 
 if (installed) {
-  logger.info("Plugins installed, initializing Jenkins")
-  jenkins.save()
-  jenkins.restart()
+    logger.info("Plugins installed, initializing Jenkins")
+    jenkins.save()
+    jenkins.restart()
 }
-
-
